@@ -32,6 +32,16 @@ template <class T, int N> class BoundedArray {
   private:
     T buf[N];
 };
+/*
+esse erro ocorre quando os métodos get e set são invocados com um índice maior
+ou igual ao parâmetro N da classe.
+*/
+class uninitializedError : public std::exception{
+public:
+  virtual const char *errorMessage(){
+    return "Erro: indice nao inicializado.";
+  }
+};
 
 template <class T> void testArray() {
   BoundedArray<T, 8> a;
