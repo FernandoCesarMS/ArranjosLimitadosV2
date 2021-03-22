@@ -11,6 +11,16 @@ public:
     return "Erro: indice maior que arranjo.";
   }
 };
+/*
+ esse erro ocorre quando os métodos get e set são invocados com um índice 
+ negativo. 
+*/
+class negativeError : public  std::exception{
+public:
+  virtual const char *errorMessage(){
+    return "Erro: indice negativo.";
+  }
+};
 template <class T, int N> class BoundedArray {
   public:
     void set(int index, T value) {
