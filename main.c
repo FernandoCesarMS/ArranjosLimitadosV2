@@ -42,6 +42,43 @@ public:
     return "Erro: indice nao inicializado.";
   }
 };
+template <class T, int N> class BoundedArray{
+private:
+  T buf[N];
+  std::vector<int> uninitialized;
+public:
+  BoundedArray(){
+    for (int i = 0; i <= N-1; i++){
+      uninitialized.push_back(0);
+    }
+  }
+  T get(int posicao){
+    if (!(posicao >= 0)){
+      throw negativeError();  
+    }
+    else if (!(posicao < N)){
+      throw biggerError(); 
+    }
+    else if (uninitialized[posicao] == 0){
+      throw uninitializedError();
+    }
+    else{
+      return buf[posicao];   
+    }
+  }
+  void set(int posicao, T valor){
+    if (posicao >= 0 && posicao < N){
+        uninitialized[posicao]++; 
+        buf[posicao] = valor;
+    }
+    else if (!(posicao >= 0)){
+      throw negativeError();  
+    }
+    else{
+      throw biggerError();  
+    }
+  }
+};
 
 template <class T> void testArray() {
   BoundedArray<T, 8> a;
