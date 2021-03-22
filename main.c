@@ -80,22 +80,34 @@ public:
   }
 };
 
-template <class T> void testArray() {
+template <class T>
+void testArray(){
   BoundedArray<T, 8> a;
   char action;
-  while (std::cin >> action) {
+  while (std::cin >> action){
     int index;
     std::cin >> index;
-    try {
-      if (action == 's') {
+    try{
+      if (action == 's'){
         T value;
         std::cin >> value;
         a.set(index, value);
-      } else if (action == 'g') {
+      }
+      else if (action == 'g'){
         std::cout << a.get(index) << std::endl;
       }
-    } catch (...) {
-      std::cerr << "Erro desconhecido." << std::endl;
+    }
+    catch (biggerError e){
+       std::cerr << e.errorMessage();
+    }
+    catch (negativeError e){
+       std::cerr << e.errorMessage();
+    }
+    catch (uninitializedError e){
+       std::cerr << e.errorMessage();
+    }
+    catch (...){
+       std::cerr << "Erro inesperado!";
     }
   }
 }
